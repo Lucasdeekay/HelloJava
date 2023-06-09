@@ -1,95 +1,92 @@
+// This program solves the quadratic equation for given
+// values a, b, and c
+
+// Import package
 import java.text.NumberFormat;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class Demo {
-    public static void main(String[] args) {
-        stallBill();
+    public static void main(String[] args){
+
     }
 
-    public static double getPrincipal(){
-        Scanner user = new Scanner(System.in);
-        System.out.print("Principal: ");
-        return user.nextDouble();
-    }
-    public static double getRate(){
-        Scanner user = new Scanner(System.in);
-        System.out.print("Rate: ");
-        return user.nextDouble();
-    }
-    public static int getPeriod(){
-        Scanner user = new Scanner(System.in);
-        System.out.print("Period: ");
-        return user.nextInt();
-    }
-    public static void calculateMortgage(){
-        final int MONTHS_IN_YEAR = 12;
-        double principal = getPrincipal();
-        double rate = getRate()/ (100 * MONTHS_IN_YEAR);
-        int period = getPeriod();
+    public static void quadEquation(){
+        // Create Scanner object
+        Scanner input = new Scanner(System.in);
 
-        double pow = Math.pow(1 + rate, period * MONTHS_IN_YEAR);
-        double mortgage = principal * ( (rate * pow) / (pow - 1) );
-        System.out.println("Mortgage: " + NumberFormat.getCurrencyInstance().format(mortgage));
-    }
-    public static void fizzBuzz(int number){
-        if (number % 3 == 0 && number % 5 == 0){
-            System.out.println("FizzBuzz");
-        }
-        else if (number % 5 == 0){
-            System.out.println("Buzz");
-        }
-        else if (number % 3 == 0){
-            System.out.println("Fizz");
-        }
-        else
-            System.out.println(number);
-    }
+        // Print message to collect input for a
+        System.out.print("Enter a: ");
+        // Collect input for a
+        int a = input.nextInt();
 
-    static double returnDiscount(int quantity, int PRICE){
-        double discount;
-        if (quantity <= 5){
-            discount = 0.02 * PRICE;
+        // Print message to collect input for b
+        System.out.print("Enter b: ");
+        // Collect input for b
+        int b = input.nextInt();
+
+        // Print message to collect input for c
+        System.out.print("Enter c: ");
+        // Collect input for c
+        int c = input.nextInt();
+
+        // Caluclate z
+        double z = Math.pow(b, 2) - (4 * a * c);
+
+        // Check if z < 0
+        if (z < 0){
+            // Print message
+            System.out.println("Roots are imaginary");
         }
-        else if (quantity <= 10){
-            discount = 0.04 * PRICE;
+        // Otherwise check if z = 0
+        else if (z == 0) {
+            // Calculate x1 and x2
+            double x1 = -b / (2 * a);
+            double x2 = -b / (2 * a);
+
+            // Create output
+            String output = "x1 = " + x1 + "\nx2 = " + x2;
+            // Print output
+            System.out.println(output);
         }
-        else{
-            discount = 0.1 * PRICE;
+        // Else, which means z > 0
+        else {
+            // Calculate x1 and x2
+            double x1 = (-b + Math.sqrt(z)) / (2 * a);
+            double x2 = (-b - Math.sqrt(z)) / (2 * a);
+
+            // Create output
+            String output = "x1 = " + x1 + "\nx2 = " + x2;
+            // Print output
+            System.out.println(output);
         }
-        return discount;
     }
 
-    static int getInput(){
-        Scanner user = new Scanner(System.in);
-        int quantity = 0;
-        try {
-            System.out.print("Quantity: ");
-            quantity = user.nextInt();
-        }
-        catch (InputMismatchException e){
-            System.out.println("Input a number");
-        }
-        return quantity;
-    }
-    public static void stallBill(){
-        int PRICE = 30_000;
-        int quantity;
-        do {
-            quantity = getInput();
-        } while (quantity <= 0);
-        double discount = returnDiscount(quantity, PRICE);
-        double grossPay = PRICE * quantity;
-        double netPay = grossPay - discount;
-        String message =
-                "Price: " + NumberFormat.getCurrencyInstance().format(PRICE) + "\n" +
-                "Quantity: " + NumberFormat.getCurrencyInstance().format(quantity) + "\n" +
-                "Gross Pay: " + NumberFormat.getCurrencyInstance().format(grossPay) + "\n" +
-                "Discount: " + NumberFormat.getCurrencyInstance().format(discount) + "\n" +
-                "Net Pay: " + NumberFormat.getCurrencyInstance().format(netPay) + "\n";
-        System.out.println(message);
+    public static void celsiusToFahrenheit(){
+        Scanner input = new Scanner(System.in);
 
+        System.out.print("Enter value for celsius: ");
+        double celsius = input.nextDouble();
+
+        double fahrenheit = celsius * 33.8;
+
+        System.out.println("Celsius: " + celsius + "\nFahrenheit: " + fahrenheit);
+    }
+
+    public static void simpleInterest(){
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter value for Principal ($): ");
+        double principal = input.nextDouble();
+
+        System.out.print("Enter value for Rate (%): ");
+        double rate = input.nextDouble();
+
+        System.out.print("Enter value for Time (Yrs): ");
+        double time = input.nextDouble();
+
+        double interest = principal * (rate/100) * time;
+
+        System.out.println("Simple Interest: " + NumberFormat.getCurrencyInstance().format(interest));
     }
 }
-
